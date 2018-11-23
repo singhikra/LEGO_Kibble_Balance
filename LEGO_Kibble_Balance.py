@@ -14,13 +14,17 @@ def initialise():
     initialisePhidget()
     initialiseLabJackU6()
 
-def main():
+def testPhidget():
 	try:
 		initialise()
 		while True:
 			Phidget.setVoltage(1.225, 0)
+			Phidget.setVoltage(-5.36, 1)
 	finally:
 		Phidget.close()
+
+def main():
+	testPhidget()
 
 
 if __name__=="__main__":
