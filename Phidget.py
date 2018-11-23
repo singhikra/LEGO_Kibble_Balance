@@ -167,13 +167,14 @@ def initialise():
             PrintOpenErrorMessage(e, ch0)
             raise EndProgramSignal("Program Terminated: Open Failed")
 
-    except PhidgetException as e:
+	except PhidgetException as e:
         sys.stderr.write("\nExiting with error(s)...")
         DisplayError(e)
         traceback.print_exc()
         print("Cleaning up...")
         ch.close()
         return 1
+    
     except EndProgramSignal as e:
         print(e)
         print("Cleaning up...")
