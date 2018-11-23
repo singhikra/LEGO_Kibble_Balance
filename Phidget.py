@@ -134,7 +134,8 @@ def initialise():
         
         ch0.setDeviceSerialNumber(493848)
         ch1.setDeviceSerialNumber(493848)
-        #ch1.setHubPort(channelInfo.hubPort)
+        ch0.setHubPort(0)
+        ch1.setHubPort(0)
         ch0.setIsHubPortDevice(0)
         ch1.setIsHubPortDevice(0)
         ch0.setChannel(0)   
@@ -166,13 +167,20 @@ def initialise():
         except PhidgetException as e:
             PrintOpenErrorMessage(e, ch0)
             raise EndProgramSignal("Program Terminated: Open Failed")
+
+        try:
+            ch1.openWaitForAttachment(5000)
+        except PhidgetException as e:
+            PrintOpenErrorMessage(e, ch1)
+            raise EndProgramSignal("Program Terminated: Open Failed")
     
         except PhidgetException as e:
             sys.stderr.write("\nExiting with error(s)...")
             DisplayError(e)
             traceback.print_exc()
             print("Cleaning up...")
-            ch.close()
+            ch0.close()
+            ch1.close()
             return 1
     
     except EndProgramSignal as e:
