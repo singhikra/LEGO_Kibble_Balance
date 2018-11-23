@@ -167,7 +167,7 @@ def initialise():
             PrintOpenErrorMessage(e, ch0)
             raise EndProgramSignal("Program Terminated: Open Failed")
 
-	except PhidgetException as e:
+    except PhidgetException as e:
         sys.stderr.write("\nExiting with error(s)...")
         DisplayError(e)
         traceback.print_exc()
@@ -203,9 +203,9 @@ def setVoltage(voltage, channel):
 
         print("Setting VoltageOutput Voltage to " + str(voltage))
         if channel == 0:
-	        ch0.setVoltage(voltage)
+            ch0.setVoltage(voltage)
         elif channel == 1:
-	    	ch1.setVoltage(voltage)
+            ch1.setVoltage(voltage)
 
     except PhidgetException as e:
         sys.stderr.write("\nExiting with error(s)...")
