@@ -195,11 +195,11 @@ def setVoltage(voltage, channel):
             voltage = float(voltage)
         except ValueError as e:
             print("Input must be a number, or Q to quit.")
-            continue
+            return 0
 
         if (voltage > ch0.getMaxVoltage() or voltage < ch0.getMinVoltage()):
             print("Voltage must be between %.2f and %.2f\n" % (ch0.getMinVoltage(), ch0.getMaxVoltage()))
-            continue
+            return 0
 
         print("Setting VoltageOutput Voltage to " + str(voltage))
         if channel == 0:
