@@ -167,7 +167,7 @@ def initialise():
             PrintOpenErrorMessage(e, ch0)
             raise EndProgramSignal("Program Terminated: Open Failed")
 
-except PhidgetException as e:
+    except PhidgetException as e:
         sys.stderr.write("\nExiting with error(s)...")
         DisplayError(e)
         traceback.print_exc()
@@ -183,14 +183,13 @@ except PhidgetException as e:
         print("Press ENTER to end program.")
         readin = sys.stdin.readline()
 
-def setVoltage(voltage, channel)
-	try:
-        print("--------------------\n"
-        "\n  | VoltageOutput voltage can be controlled by setting its Target Voltage.\n"
-        "  | The target voltage can be a number between MinVoltage and MaxVoltage.\n"
-        "\nInput a desired voltage and press ENTER\n"
-        "Input Q and press ENTER to quit\n")
-        
+def setVoltage(voltage, channel):
+    try:
+        # print("--------------------\n"
+        # "\n  | VoltageOutput voltage can be controlled by setting its Target Voltage.\n"
+        # "  | The target voltage can be a number between MinVoltage and MaxVoltage.\n"
+        # "\nInput a desired voltage and press ENTER\n"
+        # "Input Q and press ENTER to quit\n")
         try:
             voltage = float(voltage)
         except ValueError as e:
@@ -202,11 +201,9 @@ def setVoltage(voltage, channel)
             continue
 
         print("Setting VoltageOutput Voltage to " + str(voltage))
-        switch(channel):
         if channel == 0:
 	        ch0.setVoltage(voltage)
-
-	    elif channel == 1:
+        elif channel == 1:
 	    	ch1.setVoltage(voltage)
 
     except PhidgetException as e:
@@ -225,13 +222,13 @@ def setVoltage(voltage, channel)
         print("Press ENTER to end program.")
         readin = sys.stdin.readline()
 
+'''
+* Perform clean up and exit
+'''
 def close():
-	'''
-    * Perform clean up and exit
-    '''
-	global ch0
-	global ch1
-	print("Cleaning up...")
+    global ch0
+    global ch1
+    print("Cleaning up...")
     ch0.close()
     ch1.close()
     print("\nExiting...")

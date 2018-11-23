@@ -2,9 +2,10 @@
 Program that informs the user the mass of an object placed on the LEGO Kibble Balance.
 '''
 
-import Phidget
+
 import sys
 from datetime import datetime
+import Phidget
 
 import LabJack_U6
 
@@ -33,9 +34,9 @@ def TestLabJackU6():
     try:
     # Configure the IOs before the test starts
 
-        FIOEIOAnalog = (2 ** numChannels) - 1
-        fios = FIOEIOAnalog & 0xFF
-        eios = FIOEIOAnalog // 256
+        # FIOEIOAnalog = (2 ** numChannels) - 1
+        # fios = FIOEIOAnalog & 0xFF
+        # eios = FIOEIOAnalog // 256
 
         d.getFeedback(LabJack_U6.PortDirWrite(Direction=[0, 0, 0], WriteMask=[0, 0, 15]))
 
@@ -47,7 +48,7 @@ def TestLabJackU6():
         for i in range(numChannels):
             feedbackArguments.append(LabJack_U6.AIN24(i, resolutionIndex, gainIndex, settlingFactor, differential))
 
-        start = datetime.now()
+        # start = datetime.now()
         # Call Feedback 1000 (default) times
         i = 0
         while i < numIterations:
@@ -60,13 +61,17 @@ def TestLabJackU6():
     finally:
         d.close()
 
-def main():
+def testPhidget():
 	try:
 		initialise()
 		while True:
 			Phidget.setVoltage(1.225, 0)
+			Phidget.setVoltage(-5.36, 1)
 	finally:
 		Phidget.close()
+
+def main():
+	testPhidget()
 
 
 if __name__=="__main__":
