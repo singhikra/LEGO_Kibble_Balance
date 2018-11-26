@@ -69,15 +69,17 @@ class LEGOKibbleBalance(LEGOKibbleBalanceGUI.LEGOKibbleBalance):
 
 	''' Set the supply voltage for Coil A '''
 	def SetCoilAVoltageOnButtonClick(self, event):
-		self.KibbleLog.AppendText("Setting Coil A Supply Voltage to " + self.CoilASupplyVoltage.GetValue() + " V\n")
 		Supply_Voltage_A = float(self.CoilASupplyVoltage.GetValue())
 		# Conditions to prevent Phidget from exceeding output current limit for Coil A
 		if (Supply_Voltage_A > 8):
 			Phidget.setVoltage(8, 0)
+			self.KibbleLog.AppendText("Setting Coil A Supply Voltage to 8V to prevent Phidget output current limit\n")
 		elif (Supply_Voltage_A < -8):
 			Phidget.setVoltage(-8, 0)
+			self.KibbleLog.AppendText("Setting Coil A Supply Voltage to -8V to prevent Phidget output current limit\n")
 		else:
 			Phidget.setVoltage(Supply_Voltage_A, 0)
+			self.KibbleLog.AppendText("Setting Coil A Supply Voltage to " + self.CoilASupplyVoltage.GetValue() + " V\n")
 		self.GetCoilVoltages()
 		self.DisplayCoilCurrents()
 		self.DisplayResVoltages()
@@ -89,10 +91,13 @@ class LEGOKibbleBalance(LEGOKibbleBalanceGUI.LEGOKibbleBalance):
 		# Conditions to prevent Phidget from exceeding output current limit for Coil A
 		if(Supply_Voltage_B>8):
 			Phidget.setVoltage(8, 1)
+			self.KibbleLog.AppendText("Setting Coil B Supply Voltage to 8V to prevent Phidget output current limit\n")
 		elif(Supply_Voltage_B<-8):
 			Phidget.setVoltage(-8, 1)
+			self.KibbleLog.AppendText("Setting Coil B Supply Voltage to -8V to prevent Phidget output current limit\n")
 		else:
 			Phidget.setVoltage(Supply_Voltage_B, 1)
+			self.KibbleLog.AppendText("Setting Coil B Supply Voltage to " + self.CoilBSupplyVoltage.GetValue() + " V\n")
 		self.GetCoilVoltages()
 		self.DisplayCoilCurrents()
 		self.DisplayResVoltages()
