@@ -17,9 +17,13 @@ import wx.xrc
 class LEGOKibbleBalance ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"LEGO Kibble Balance", pos = wx.DefaultPosition, size = wx.Size( 353,459 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"LEGO Kibble Balance", pos = wx.DefaultPosition, size = wx.Size( 562,403 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		gbSizer1 = wx.GridBagSizer( 0, 0 )
+		gbSizer1.SetFlexibleDirection( wx.BOTH )
+		gbSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
 		fgSizer1 = wx.FlexGridSizer( 0, 2, 0, 0 )
 		fgSizer1.SetFlexibleDirection( wx.BOTH )
@@ -45,7 +49,7 @@ class LEGOKibbleBalance ( wx.Frame ):
 		self.SetCoilBVoltage = wx.Button( self, wx.ID_ANY, u"Set Coil B Supply Voltage", wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer1.Add( self.SetCoilBVoltage, 0, wx.ALL, 5 )
 		
-		self.m_staticText11 = wx.StaticText( self, wx.ID_ANY, u"Coil Voltages", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText11 = wx.StaticText( self, wx.ID_ANY, u"Resistor Voltages", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText11.Wrap( -1 )
 		fgSizer1.Add( self.m_staticText11, 0, wx.ALL, 5 )
 		
@@ -97,23 +101,42 @@ class LEGOKibbleBalance ( wx.Frame ):
 		self.m_staticText10.Wrap( -1 )
 		fgSizer1.Add( self.m_staticText10, 0, wx.ALL, 5 )
 		
-		self.m_staticText3 = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText3.Wrap( -1 )
-		fgSizer1.Add( self.m_staticText3, 0, wx.ALL, 5 )
+		self.m_staticText21 = wx.StaticText( self, wx.ID_ANY, u"Mass of Object", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText21.Wrap( -1 )
+		fgSizer1.Add( self.m_staticText21, 0, wx.ALL, 5 )
 		
-		self.m_staticText4 = wx.StaticText( self, wx.ID_ANY, u"Kibble Log", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText4.Wrap( -1 )
-		fgSizer1.Add( self.m_staticText4, 0, wx.ALL, 5 )
+		self.m_staticText22 = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText22.Wrap( -1 )
+		fgSizer1.Add( self.m_staticText22, 0, wx.ALL, 5 )
 		
-		self.m_staticText5 = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText5.Wrap( -1 )
-		fgSizer1.Add( self.m_staticText5, 0, wx.ALL, 5 )
+		self.ObjectMass = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.ObjectMass.Enable( False )
 		
-		self.KibbleLog = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,100 ), wx.TE_MULTILINE )
-		fgSizer1.Add( self.KibbleLog, 0, wx.ALL, 5 )
+		fgSizer1.Add( self.ObjectMass, 0, wx.ALL, 5 )
+		
+		self.m_staticText23 = wx.StaticText( self, wx.ID_ANY, u"Mass (g)", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText23.Wrap( -1 )
+		fgSizer1.Add( self.m_staticText23, 0, wx.ALL, 5 )
 		
 		
-		self.SetSizer( fgSizer1 )
+		gbSizer1.Add( fgSizer1, wx.GBPosition( 0, 0 ), wx.GBSpan( 1, 1 ), wx.EXPAND, 5 )
+		
+		fgSizer5 = wx.FlexGridSizer( 0, 1, 0, 0 )
+		fgSizer5.SetFlexibleDirection( wx.BOTH )
+		fgSizer5.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, u"LEGO Kibble Balance Log", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText16.Wrap( -1 )
+		fgSizer5.Add( self.m_staticText16, 0, wx.ALL, 5 )
+		
+		self.KibbleLog = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 250,310 ), wx.TE_MULTILINE )
+		fgSizer5.Add( self.KibbleLog, 0, wx.ALL, 5 )
+		
+		
+		gbSizer1.Add( fgSizer5, wx.GBPosition( 0, 1 ), wx.GBSpan( 1, 1 ), wx.EXPAND, 5 )
+		
+		
+		self.SetSizer( gbSizer1 )
 		self.Layout()
 		
 		self.Centre( wx.BOTH )
