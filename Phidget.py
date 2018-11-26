@@ -10,8 +10,6 @@ try:
 except ImportError:
     sys.stderr.write("\nCould not find PhidgetHelperFunctions. Either add PhdiegtHelperFunctions.py to your project folder "
                       "or remove the import from your project.")
-    sys.stderr.write("\nPress ENTER to end program.")
-    readin = sys.stdin.readline()
     sys.exit()
 
 ch0 = None
@@ -188,9 +186,6 @@ def initialise():
         print("Cleaning up...")
         ch.close()
         return 1
-    finally:
-        print("Press ENTER to end program.")
-        readin = sys.stdin.readline()
 
 def setVoltage(voltage, channel):
     try:
@@ -227,9 +222,6 @@ def setVoltage(voltage, channel):
         print("Cleaning up...")
         ch.close()
         return 1
-    finally:
-        print("Press ENTER to end program.")
-        readin = sys.stdin.readline()
 
 '''
 * Perform clean up and exit
