@@ -4,17 +4,20 @@ import Phidget
 import LabJack_U6
 
 class LEGOKibbleBalance(LEGOKibbleBalanceGUI.LEGOKibbleBalance):
-	numChannels = 2  # Number of AIN channelgs being used
+	numChannels = 2  # Number of AIN channels being used
 	latestAinValues = [0] * numChannels
 
 	def __init__(self, parent):
 		LEGOKibbleBalanceGUI.LEGOKibbleBalance.__init__(self, parent)
 		self.KibbleLog.AppendText("Welcome to LEGO Kibble Balance!\n")
+		Phidget.initialise()
 		self.CoilASupplyVoltage.SetValue("0.0")
 		self.CoilBSupplyVoltage.SetValue("0.0")
 
 	def GetCoilVoltages(self):
 		global numChannels, latestAinValues
+		numChannels = 2  # Number of AIN channels being used
+		latestAinValues = [0] * numChannels
 		resolutionIndex = 1
 		gainIndex = 0
 		settlingFactor = 0
@@ -51,22 +54,34 @@ class LEGOKibbleBalance(LEGOKibbleBalanceGUI.LEGOKibbleBalance):
 		finally:
 			d.close()
 
+	def DisplayResVoltages(self):
+		self.VoltageAcrossResA.SetValue(str(latestAinValues[0]))
+		self.VoltageAcrossResB.SetValue(str(latestAinValues[1]))
+
 	def DisplayCoilCurrents(self):
-		global latestAinValues
-		self.CurrentThroughCoilA.SetValue(str(latestAinValues[0]))
-		self.CurrentThroughCoilB.SetValue(str(latestAinValues[1]))
+		self.CurrentThroughCoilA.SetValue(str(latestAinValues[0]/178.8))
+		self.CurrentThroughCoilB.SetValue(str(latestAinValues[1]/178.9))
 
 	def SetCoilAVoltageOnButtonClick(self, event):
 		self.KibbleLog.AppendText("Setting Coil A Supply Voltage to " + self.CoilASupplyVoltage.GetValue() + " V\n")
 		Supply_Voltage_A = float(self.CoilASupplyVoltage.GetValue())
 		Phidget.setVoltage(Supply_Voltage_A, 0)
+		self.GetCoilVoltages()
 		self.DisplayCoilCurrents()
+		self.DisplayResVoltages()
 
 	def SetCoilBVoltageOnButtonClick(self, event):
 		self.KibbleLog.AppendText("Setting Coil B Supply Voltage to " + self.CoilBSupplyVoltage.GetValue() + " V\n")
 		Supply_Voltage_B = float(self.CoilBSupplyVoltage.GetValue())
 		Phidget.setVoltage(Supply_Voltage_B, 1)
+		self.GetCoilVoltages()
 		self.DisplayCoilCurrents()
+		self.DisplayResVoltages()
+
+	def LEGOKibbleBalanceOnClose(self, event):
+		Phidget.close()
+		self.Show(False)
+		quit()
 
 
 # mandatory in wx, create an app, False stands for not deteriction stdin/stdout

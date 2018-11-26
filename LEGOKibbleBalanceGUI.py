@@ -17,7 +17,7 @@ import wx.xrc
 class LEGOKibbleBalance ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"LEGO Kibble Balance", pos = wx.DefaultPosition, size = wx.Size( 353,429 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"LEGO Kibble Balance", pos = wx.DefaultPosition, size = wx.Size( 353,459 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -44,6 +44,32 @@ class LEGOKibbleBalance ( wx.Frame ):
 		
 		self.SetCoilBVoltage = wx.Button( self, wx.ID_ANY, u"Set Coil B Supply Voltage", wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer1.Add( self.SetCoilBVoltage, 0, wx.ALL, 5 )
+		
+		self.m_staticText11 = wx.StaticText( self, wx.ID_ANY, u"Coil Voltages", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText11.Wrap( -1 )
+		fgSizer1.Add( self.m_staticText11, 0, wx.ALL, 5 )
+		
+		self.m_staticText12 = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText12.Wrap( -1 )
+		fgSizer1.Add( self.m_staticText12, 0, wx.ALL, 5 )
+		
+		self.VoltageAcrossResA = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.VoltageAcrossResA.Enable( False )
+		
+		fgSizer1.Add( self.VoltageAcrossResA, 0, wx.ALL, 5 )
+		
+		self.m_staticText13 = wx.StaticText( self, wx.ID_ANY, u"Voltage Across Res A", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText13.Wrap( -1 )
+		fgSizer1.Add( self.m_staticText13, 0, wx.ALL, 5 )
+		
+		self.VoltageAcrossResB = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.VoltageAcrossResB.Enable( False )
+		
+		fgSizer1.Add( self.VoltageAcrossResB, 0, wx.ALL, 5 )
+		
+		self.m_staticText14 = wx.StaticText( self, wx.ID_ANY, u"Voltage Across Res B", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText14.Wrap( -1 )
+		fgSizer1.Add( self.m_staticText14, 0, wx.ALL, 5 )
 		
 		self.m_staticText6 = wx.StaticText( self, wx.ID_ANY, u"Coil Currents", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText6.Wrap( -1 )
@@ -93,6 +119,7 @@ class LEGOKibbleBalance ( wx.Frame ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.Bind( wx.EVT_CLOSE, self.LEGOKibbleBalanceOnClose )
 		self.SetCoilAVoltage.Bind( wx.EVT_BUTTON, self.SetCoilAVoltageOnButtonClick )
 		self.SetCoilBVoltage.Bind( wx.EVT_BUTTON, self.SetCoilBVoltageOnButtonClick )
 	
@@ -101,6 +128,9 @@ class LEGOKibbleBalance ( wx.Frame ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def LEGOKibbleBalanceOnClose( self, event ):
+		event.Skip()
+	
 	def SetCoilAVoltageOnButtonClick( self, event ):
 		event.Skip()
 	
